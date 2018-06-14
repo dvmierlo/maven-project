@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<mule
+<mule xmlns:json="http://www.mulesoft.org/schema/mule/json"
 	xmlns:jms="http://www.mulesoft.org/schema/mule/jms"
 	xmlns:db="http://www.mulesoft.org/schema/mule/db"
 	xmlns:http="http://www.mulesoft.org/schema/mule/http"
@@ -12,7 +12,8 @@
 http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
 http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
 http://www.mulesoft.org/schema/mule/db http://www.mulesoft.org/schema/mule/db/current/mule-db.xsd
-http://www.mulesoft.org/schema/mule/jms http://www.mulesoft.org/schema/mule/jms/current/mule-jms.xsd"
+http://www.mulesoft.org/schema/mule/jms http://www.mulesoft.org/schema/mule/jms/current/mule-jms.xsd
+http://www.mulesoft.org/schema/mule/json http://www.mulesoft.org/schema/mule/json/current/mule-json.xsd"
 >
 	<http:listener-config name="HTTP_Listener_Configuration" host="0.0.0.0" port="8081" basePath="mule/training/01" doc:name="HTTP Listener Configuration" />
 	
@@ -34,8 +35,8 @@ http://www.mulesoft.org/schema/mule/jms http://www.mulesoft.org/schema/mule/jms/
 		<db:select config-ref="Derby_Configuration" doc:name="Database">
 			<db:parameterized-query><![CDATA[SELECT * FROM FLIGHTS]]></db:parameterized-query>
 		</db:select>
-		<object-to-string-transformer doc:name="Object to String" />
-		<jms:outbound-endpoint queue="flights" connector-ref="Active_MQ" doc:name="JMS" />
+        <json:object-to-json-transformer doc:name="Convert database data to JSON"/>
+		<jms:outbound-endpoint queue="flights" connector-ref="Active_MQ" doc:name="Log the results via JMS" />
 	</flow>
 	
 </mule>

@@ -11,7 +11,7 @@ http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/cor
 http://www.mulesoft.org/schema/mule/jms http://www.mulesoft.org/schema/mule/jms/current/mule-jms.xsd"
 >
 	<flow name="logflightsFlow">
-		<jms:inbound-endpoint queue="flights" connector-ref="Active_MQ" doc:name="JMS" />
+		<jms:inbound-endpoint queue="flights" connector-ref="Active_MQ" doc:name="Log payload received from JMS" />
 		<logger message="#[message.payload]" level="INFO" doc:name="Logger" />
 	</flow>
 	
