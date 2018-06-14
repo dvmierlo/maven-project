@@ -9,6 +9,7 @@
 	<name>Mule maven-project Application</name>
 
 	<properties>
+		<serverGroup>Development</serverGroup>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<mule.version>3.9.0</mule.version>
@@ -26,6 +27,19 @@
 				<extensions>true</extensions>
 				<configuration>
 					<copyToAppsDirectory>true</copyToAppsDirectory>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.mule.tools</groupId>
+				<artifactId>mule-mmc-rest-plugin</artifactId>
+				<version>1.1.1</version>
+				<configuration>
+					<muleApiUrl>http://localhost:8585/mmc-3.6.1/api</muleApiUrl>
+					<name>${project.artifactId}</name>
+					<version>${build.number}</version>
+					<serverGroup>${serverGroup}</serverGroup>
+					<username>admin</username>
+					<password>admin</password>
 				</configuration>
 			</plugin>
 			<plugin>
